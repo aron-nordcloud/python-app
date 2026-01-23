@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import datetime
 import socket
-
+from os import environ
 
 app = Flask(__name__)
 
@@ -24,5 +24,7 @@ def health():
 
 if __name__ == '__main__':
 
-    app.run(host="0.0.0.0")
+    port = int(environ.get("PORT", 5050))  # default to 5050
+    app.run(host='0.0.0.0', port=5050)
+
 
