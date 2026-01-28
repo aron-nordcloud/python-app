@@ -8,27 +8,41 @@ app = Flask(__name__)
 
 
 
+
 @app.route('/clock')
 def clock():
     hostname = socket.gethostname()
-    html = f"""<!DOCTYPE html>
+    html = f"""
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Clock</title>
-  <style>body{{margin:0;padding:0;font-family:Arial}}</style>
+    <meta charset="UTF-8">
+    <title>Clock</title>
+    <style>
+        body {{ margin:0; padding:0; font-family:Arial; }}
+    </style>
 </head>
 <body>
-  https://free.timeanddate.com/clock/i8vcosp8/n16/tlnl/fn6/fs48/fcfff/tct/pct/ftb/tt0/tw1/tm1/th1/ta1/tb4
-  </iframe>
 
-  <div style="text-align:center; padding:20px;">
+<iframe 
+    src="https://free.timeanddate.com/clock/i8vcosp8/n16/tlnl/fn6/fs48/fcfff/tct/pct/ftb/tt0/tw1/tm1/th1/ta1/tb4"
+    frameborder="0"
+    width="100%"
+    height="150"
+    style="display:block;">
+</iframe>
+
+<div style="text-align:center; padding:20px;">
     <h2>Hostname: {hostname}</h2>
     <p>You are doing great, big human! check cd runners after argocd retry6</p>
-  </div>
+</div>
+
 </body>
-</html>"""
+</html>
+"""
     return Response(html, mimetype="text/html")
+
+
 
 
 
