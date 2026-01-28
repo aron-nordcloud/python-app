@@ -5,7 +5,7 @@ from os import environ
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/clock')
 def clock():
     """Use an embedded clock widget"""
     return """
