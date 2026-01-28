@@ -5,25 +5,42 @@ from os import environ
 
 app = Flask(__name__)
 
+
 @app.route('/clock')
 def clock():
-    """Use an embedded clock widget"""
-    return """
+    hostname = socket.gethostname()
+    return render_template_string("""
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Clock</title>
+    <meta charset="utf-8">
+    <title>Clock</title>
+    <style>
+        body { margin:0; padding:0; font-family: Arial, sans-serif; }
+        .wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
+        .clock { font-size: 64px; font-weight: 600; letter-spacing: 2px; }
+        .sub   { margin-top: 16px; color:#444; }
+    </style>
     </head>
-    <body style="margin:0; padding:0;">
-        <iframe src="https://free.timeanddate.com/clock/i8vcosp8/n16/tlnl/fn6/fs48/fcfff/tct/pct/ftb/tt0/tw1/tm1/th1/ta1/tb4" 
-                frameborder="0" width="100%" height="200"></iframe>
-        <div style="text-align:center; padding:20px; font-family:Arial;">
-            <h2>Hostname: """ + socket.gethostname() + """</h2>
-            <p>You are doing great, big human! check cd runners after argocd retry6</p>
-        </div>
+    <body>
+    <div class="wrap">
+        <div id="clock" class="clock">--:--:--</div>
+        <h2>Hostname: {{ hostname }}</h2>
+        <p class="sub">You are doing great, big human! check cd runners after argocd retry6</p>
+    </div>
+    <script>
+        const opts = { hour: '2-digit', minute: '2-digit', second: '2-digit',
+                    hour12: false, timeZone: 'Europe/Amsterdam' };
+        function tick() {
+        document.getElementById('clock').textContent =
+            new Intl.DateTimeFormat(undefined, opts).format(new Date());
+        }
+        tick(); setInterval(tick, 1000);
+    </script>
     </body>
     </html>
-    """
+    """, hostname=hostname)
+
 
 @app.route('/api/v1/info')
 
