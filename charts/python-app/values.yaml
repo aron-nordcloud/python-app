@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: aronnordcloud/python-app
   pullPolicy: IfNotPresent
-  tag: a1afa1
+  tag: 09d808
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
